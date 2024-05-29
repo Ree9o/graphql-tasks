@@ -15,16 +15,15 @@ export const PrivateRoute = ({ children }: Props) => {
     return <>{children}</>;
   }
 
-  return <Navigate to="/signin " />;
+  return <Navigate to="/signin" />;
 };
 export const GuestRoute = ({ children }: Props) => {
   const authInfo = useAuth();
   if (!authInfo.checked) {
     return <div>Loading...</div>;
   }
-
   if (authInfo.isAuthenticated) {
-    <Navigate to="/" />;
+    return <Navigate to="/" />;
   }
 
   return <>{children}</>;
