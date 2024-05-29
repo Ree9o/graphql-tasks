@@ -1,8 +1,12 @@
+import Header from "./Header";
 
 function Main() {
   return (
-    <div>Main</div>
-  )
+    <>
+      <Header />
+      <div>Main</div>
+    </>
+  );
 }
 
-export default Main
+export default Main;
