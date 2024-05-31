@@ -3,20 +3,17 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Task } from "../types/task.types";
+import { TableRow } from "@mui/material";
+import EditTask from "./EditTask";
 
-function createData(name: string, dueDate: string, status: string) {
-  return { name, dueDate, status };
-}
+type Props = {
+  tasks: Task[] | undefined;
+  userId: number;
+};
 
-const rows = [
-  createData("task-1", "2023-01-01", "NOT_STARTED"),
-  createData("task-2", "2023-01-01", "IN_PROGRESS"),
-  createData("task-3", "2023-01-01", "COMPLETED"),
-];
-
-export default function TaskTable() {
+export default function TaskTable({ tasks, userId }: Props) {
   return (
     <TableContainer component={Paper} sx={{ width: "80%", m: "auto" }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -29,15 +26,17 @@ export default function TaskTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {row.name}
+          {tasks?.map((task) => (
+            <TableRow key={task.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell component="th" scope="task">
+                {task.name}
               </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.dueDate}</TableCell>
-              <TableCell align="right">{row.status}</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right">{task.name}</TableCell>
+              <TableCell align="right">{task.dueDate}</TableCell>
+              <TableCell align="right">{task.status}</TableCell>
+              <TableCell align="right">
+                <EditTask task={task} userId={userId} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
