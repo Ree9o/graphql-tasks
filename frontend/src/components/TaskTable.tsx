@@ -5,8 +5,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 import { Task } from "../types/task.types";
-import { TableRow } from "@mui/material";
+import { Stack, TableRow } from "@mui/material";
 import EditTask from "./EditTask";
+import DeleteTask from "./DeleteTask";
 
 type Props = {
   tasks: Task[] | undefined;
@@ -35,7 +36,10 @@ export default function TaskTable({ tasks, userId }: Props) {
               <TableCell align="right">{task.dueDate}</TableCell>
               <TableCell align="right">{task.status}</TableCell>
               <TableCell align="right">
-                <EditTask task={task} userId={userId} />
+                <Stack spacing={2} direction={"row"} justifyContent={"flex-end"}>
+                  <EditTask task={task} userId={userId} />
+                  <DeleteTask id={task.id} userId={userId} />
+                </Stack>
               </TableCell>
             </TableRow>
           ))}
